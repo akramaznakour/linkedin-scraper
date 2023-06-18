@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LinkedIn Job Scraper</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <h1>LinkedIn Job Scraper</h1>
+    <p class="status-message" id="statusMessage">
+      Click the button below to start scraping.
+    </p>
+    <div class="button-container">
+      <button class="start-button" id="startButton">
+        <i class="fas fa-play"></i> Start
+      </button>
+      <button class="search-button" id="openSearchPageButton">
+        <i class="fas fa-search"></i> Search <span id="searchCount">(0)</span>
+      </button>
+    </div>
+    <div>
+      <progress class="progress-bar" id="progressBar" value="10" max="100">
+        0%
+    </div>
+    <div class="button-container">
+      <button class="disabled-data-export-button" id="copyCsvButton" disabled>
+        <i class="fas fa-copy"></i> CSV
+      </button>
+      <button class="disabled-data-export-button" id="copySqlButton" disabled>
+        <i class="fas fa-copy"></i> SQL
+      </button>
+    </div>
+    <div class="button-container">
+      <button
+        class="disabled-data-export-button"
+        id="downloadCsvButton"
+        disabled
+      >
+        <i class="fas fa-download"></i> CSV
+      </button>
+      <button
+        class="disabled-data-export-button"
+        id="downloadSqlButton"
+        disabled
+      >
+        <i class="fas fa-download"></i> SQL
+      </button>
+    </div>
+  </body>
+  <script src="message-listeners.js"></script>
+  <script src="data-export-utils.js"></script>
+  <script src="popup.js"></script>
+</html>
