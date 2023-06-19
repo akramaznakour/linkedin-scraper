@@ -56,8 +56,8 @@ async function scrapeJobDetails(card) {
   const linkedinJobId = window.location.href
     .split("currentJobId=")[1]
     .split("&")[0];
-  
-    const link = `https://www.linkedin.com/jobs/search/?currentJobId=${linkedinJobId}`;
+
+  const link = `https://www.linkedin.com/jobs/search/?currentJobId=${linkedinJobId}`;
 
   return {
     linkedinJobId,
@@ -68,28 +68,11 @@ async function scrapeJobDetails(card) {
   };
 }
 
-async function scrapeJobsPage() {
-  const jobs = [];
-
-  const cards = document.querySelectorAll(".job-card-container");
-  const cardCount = cards.length;
-  sendMessageToPopup(`Card Count: ${cardCount}`);
-
-  for (let cardIndex = 0; cardIndex < cardCount; cardIndex++) {
-    sendMessageToPopup(`Card ${cardIndex + 1}`);
-    const jobDetails = await scrapeJobDetails(cards[cardIndex]);
-    sendJob(jobDetails);
-    jobs.push(jobDetails);
-  }
-
-  return jobs;
-}
-
 async function scrapeLinkedInJobs() {
-  const jobs = [];
   const pageCountElements = [
     ...document.querySelectorAll(".artdeco-pagination__indicator"),
   ];
+
   const pageCount =
     pageCountElements.length > 0
       ? parseInt(
@@ -100,18 +83,6 @@ async function scrapeLinkedInJobs() {
   sendMessageToPopup(`Page Count: ${pageCount}`);
 
   for (let pageIndex = 0; pageIndex < pageCount; pageIndex++) {
-    sendProgressPercentage(((pageIndex + 1) / pageCount) * 100);
-
-    if (pageCount > 1) {
-      document
-        .querySelectorAll(".artdeco-pagination__indicator")
-        [pageIndex].querySelector("button")
-        .click();
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-
-    sendMessageToPopup(`Page ${pageIndex + 1}`);
-
     const cardsListElement = document.querySelector(
       ".jobs-search-results-list"
     );
@@ -120,6 +91,34 @@ async function scrapeLinkedInJobs() {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    await scrapeJobsPage();
+    const cards = document.querySelectorAll(".job-card-container");
+
+    const cardCount = cards.length;
+
+    sendMessageToPopup(`Card Count: ${cardCount}`);
+
+    for (let cardIndex = 0; cardIndex < cardCount; cardIndex++) {
+      sendMessageToPopup(
+        `Card (${cardIndex + 1}/${cardCount}) of page ${
+          pageIndex + 1
+        }/${pageCount}`
+      );
+
+      const jobDetails = await scrapeJobDetails(cards[cardIndex]);
+
+      sendJob(jobDetails);
+
+      const cardProgressPercentage = Math.round(
+        ((cardIndex + 1) / cardCount) * 100
+      );
+
+      const pageProgressPercentage = Math.round((pageIndex / pageCount) * 100);
+
+      const overallProgressPercentage = Math.round(
+        pageProgressPercentage + cardProgressPercentage / pageCount
+      );
+
+      sendProgressPercentage(overallProgressPercentage);
+    }
   }
 }

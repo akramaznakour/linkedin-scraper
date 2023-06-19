@@ -56,4 +56,9 @@ button:disabled {
   border-radius: 5px;
   margin-top: 20px;
   display: none;
+  text-align: center;
+}
+
+.progress-bar:after {
+  content: attr(value)'%';
 }
