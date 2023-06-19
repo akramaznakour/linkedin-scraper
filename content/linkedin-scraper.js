@@ -1,4 +1,3 @@
-// send scrapped job
 function sendJob(job) {
   chrome.runtime.sendMessage({ action: "job", message: job });
 }
@@ -46,15 +45,19 @@ async function scrapeJobDetails(card) {
   const jobTitle = document.querySelector(
     ".jobs-unified-top-card__job-title"
   ).innerText;
+
   const jobInsight =
     document.querySelector(".jobs-unified-top-card__bullet")?.innerText || "";
+
   const jobDescription = document.querySelector(
     ".jobs-description-content__text"
   ).innerText;
+
   const linkedinJobId = window.location.href
     .split("currentJobId=")[1]
     .split("&")[0];
-  const link = `https://www.linkedin.com/jobs/search/?currentJobId=${linkedinJobId}`;
+  
+    const link = `https://www.linkedin.com/jobs/search/?currentJobId=${linkedinJobId}`;
 
   return {
     linkedinJobId,
@@ -114,11 +117,9 @@ async function scrapeLinkedInJobs() {
     );
 
     await simulateRealScrollToEnd(cardsListElement, 500);
+
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const pageJobs = await scrapeJobsPage();
-    jobs.push(...pageJobs);
+    await scrapeJobsPage();
   }
-
-  return jobs;
 }
