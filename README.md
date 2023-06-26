@@ -1,6 +1,9 @@
 # Enhanced LinkedIn Job Search Chrome Extension
 
 The Enhanced LinkedIn Job Search Chrome extension provides enhanced functionality and greater control for LinkedIn job seekers. With this extension, you can extract job details, customize search filters, and optimize your job search experience on LinkedIn.
+## Screenshot GIF
+
+![Screenshot](/images/readme-screenshot.gif)
 
 ## Key Features
 
