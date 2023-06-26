@@ -30,24 +30,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create table rows from the jobs data
         jobs.forEach(function (job) {
-          table.row.add([
-            job.linkedinJobId,
-            `<a href="${job.link}">${job.jobTitle}</a>`,
-            job.jobInsight,
-            job.jobDescription,
-          ]).draw();
+          table.row
+            .add([
+              job.linkedinJobId,
+              `<a href="${job.link}">${job.jobTitle}</a>`,
+              job.jobInsight,
+              job.jobDescription,
+            ])
+            .draw();
         });
+
+        // Update the title with the count of jobs
+        document.getElementById(
+          "pageTitle"
+        ).innerText = `LinkedIn Job (${jobs.length})`;
       }
     });
   }
 });
 
-
-
 document
   .getElementById("clearLocalStorageButton")
   .addEventListener("click", function () {
-    chrome.storage.local.remove("jobs", function() {
+    chrome.storage.local.remove("jobs", function () {
       // Handle the removal of "jobs" from chrome.storage.local
       console.log("Jobs data removed from chrome.storage.local");
       location.reload(); // Reload the page

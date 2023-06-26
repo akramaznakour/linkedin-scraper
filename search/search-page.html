@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title id="pageTitle">LinkedIn Jobs</title>
     <meta
       http-equiv="Content-Security-Policy"
       content="script-src 'self' 'unsafe-inline';"
     />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" type="text/css" href="jquery.dataTables.min.css" />
     <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="jquery.dataTables.min.js"></script>
-    <!-- full cdn -->
+    <!-- full CDN -->
   </head>
   <body>
-    <h1>LinkedIn Job Scraper</h1>
-    <!-- clear local storage -->
-    <button id="clearLocalStorageButton">Clear Local Storage</button>
-    <table id="jobsTable" class="display">
-      <thead>
-        <tr>
-          <th>LinkedIn Job ID</th>
-          <th>Link</th>
-          <th>Job Insight</th>
-          <th>Job Description</th>
-        </tr>
-      </thead>
-      <tbody id="jobsTableBody"></tbody>
-    </table>
+    <div class="container">
+      <h1 class="title">LinkedIn Job</h1>
+      <button id="clearLocalStorageButton" class="button">
+        Clear Local Storage
+      </button>
+      <table id="jobsTable" class="table">
+        <thead>
+          <tr>
+            <th>LinkedIn Job ID</th>
+            <th>Link</th>
+            <th>Job Insight</th>
+            <th>Job Description</th>
+          </tr>
+        </thead>
+        <tbody id="jobsTableBody"></tbody>
+      </table>
+    </div>
+    <script type="text/javascript" src="search-page.js"></script>
   </body>
-  <script type="text/javascript" src="search-page.js"></script>
 </html>
