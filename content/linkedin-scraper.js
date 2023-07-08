@@ -68,7 +68,7 @@ async function scrapeJobDetails(card) {
   };
 }
 
-async function go_to_page(pageNumber) {
+async function changePage(pageNumber) {
   // click button
   const pageButton = document.querySelector(`button[aria-label="Page ${pageNumber}"]`);
   pageButton.click();
@@ -130,6 +130,6 @@ async function scrapeLinkedInJobs() {
       sendProgressPercentage(overallProgressPercentage);
     }
 
-    await go_to_page(pageIndex+2);
+    await changePage(pageIndex+2);
   }
 }
