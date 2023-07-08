@@ -130,6 +130,8 @@ async function scrapeLinkedInJobs() {
       sendProgressPercentage(overallProgressPercentage);
     }
 
-    await changePage(pageIndex+2);
+    if (pageIndex < pageCount - 1) {
+      await changePage(pageIndex + 2);
+    }
   }
 }
