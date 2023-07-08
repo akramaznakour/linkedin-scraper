@@ -68,6 +68,15 @@ async function scrapeJobDetails(card) {
   };
 }
 
+async function changePage(pageNumber) {
+  // click button
+  const pageButton = document.querySelector(`button[aria-label="Page ${pageNumber}"]`);
+  pageButton.click();
+  
+  // give some time for page loading
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+}
+
 async function scrapeLinkedInJobs() {
   const pageCountElements = [
     ...document.querySelectorAll(".artdeco-pagination__indicator"),
@@ -119,6 +128,10 @@ async function scrapeLinkedInJobs() {
       );
 
       sendProgressPercentage(overallProgressPercentage);
+    }
+
+    if (pageIndex < pageCount - 1) {
+      await changePage(pageIndex + 2);
     }
   }
 }
