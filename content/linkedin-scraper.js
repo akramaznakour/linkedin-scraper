@@ -95,15 +95,10 @@ async function scrapeLinkedInJobs() {
     const cardsListElement = document.querySelector(
       ".jobs-search-results-list"
     );
-
-    //await simulateRealScrollToEnd(cardsListElement, 500);
     await scrollProgressively();
-    //await new Promise((resolve) => setTimeout(resolve, 500));
-
     const cards = document.querySelectorAll(".job-card-container");
 
     const cardCount = cards.length;
-    console.log("card length :" +cardCount);
     sendMessageToPopup(`Card Count: ${cardCount}`);
 
     for (let cardIndex = 0; cardIndex < cardCount; cardIndex++) {
@@ -137,18 +132,18 @@ async function scrapeLinkedInJobs() {
 }
 
   function scrollProgressively(){
+    const timeToCall=2000;
     return new Promise((res)=>{
-      let jobs=document.querySelectorAll(".job-card-container");
-      let jobsCount=jobs.length;
+      const jobs=document.querySelectorAll(".job-card-container");
+      const jobsCount=jobs.length;
       jobs[jobsCount-1].scrollIntoView({behaviour:"smooth"});
       setTimeout(async() => {
         if(document.querySelectorAll(".job-card-container").length !=jobsCount)
-        res(ScrollProgressive());
+        res(scrollProgressively());
         else {
-        //console.log("length :"+document.querySelectorAll(".job-card-container").length);
-        return res("done");
+        return res({status:"end of scroll"});
         }
-      }, 2000);
+      }, timeToCall);
     })
 }
 
