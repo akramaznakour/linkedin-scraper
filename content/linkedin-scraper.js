@@ -47,7 +47,7 @@ async function scrapeJobDetails(card) {
   ).innerText;
 
   const jobInsight =
-    document.querySelector(".job-details-jobs-unified-top-card__bullet")?.innerText || "";
+    document.querySelector(".job-details-jobs-unified-top-card__bullet")?.textContent || "";
 
   const jobDescription = document.querySelector(
     ".jobs-description-content__text"
