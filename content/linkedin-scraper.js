@@ -43,11 +43,11 @@ async function scrapeJobDetails(card) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const jobTitle = document.querySelector(
-    ".jobs-unified-top-card__job-title"
+    ".job-details-jobs-unified-top-card__job-title"
   ).innerText;
 
   const jobInsight =
-    document.querySelector(".jobs-unified-top-card__bullet")?.innerText || "";
+    document.querySelector(".job-details-jobs-unified-top-card__bullet")?.textContent || "";
 
   const jobDescription = document.querySelector(
     ".jobs-description-content__text"
