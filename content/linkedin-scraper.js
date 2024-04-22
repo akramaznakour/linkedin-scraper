@@ -46,8 +46,21 @@ async function scrapeJobDetails(card) {
     ".job-details-jobs-unified-top-card__job-title"
   ).innerText;
 
-  const jobInsight =
-    document.querySelector(".job-details-jobs-unified-top-card__bullet")?.textContent || "";
+  const jobLocation =
+    document.querySelector(".job-details-jobs-unified-top-card__bullet")
+      ?.textContent || "";
+
+  const company = document.querySelector(
+    ".job-details-jobs-unified-top-card__primary-description-without-tagline .app-aware-link"
+  ).innerText;
+
+  const numberOfApplicants = document.querySelector(
+    ".tvm__text.tvm__text"
+  )?.textContent;
+
+  const postedSince = document.querySelector(
+    ".job-details-jobs-unified-top-card__primary-description-without-tagline.mb2"
+  )?.children[5].textContent;
 
   const jobDescription = document.querySelector(
     ".jobs-description-content__text"
@@ -63,16 +76,21 @@ async function scrapeJobDetails(card) {
     linkedinJobId,
     link,
     jobTitle,
-    jobInsight,
+    company,
+    numberOfApplicants,
+    jobLocation,
+    postedSince,
     jobDescription,
   };
 }
 
 async function changePage(pageNumber) {
   // click button
-  const pageButton = document.querySelector(`button[aria-label="Page ${pageNumber}"]`);
+  const pageButton = document.querySelector(
+    `button[aria-label="Page ${pageNumber}"]`
+  );
   pageButton.click();
-  
+
   // give some time for page loading
   await new Promise((resolve) => setTimeout(resolve, 3000));
 }
@@ -131,19 +149,20 @@ async function scrapeLinkedInJobs() {
   }
 }
 
-  function scrollProgressively(){
-    const timeToCall=2000;
-    return new Promise((res)=>{
-      const jobs=document.querySelectorAll(".job-card-container");
-      const jobsCount=jobs.length;
-      jobs[jobsCount-1].scrollIntoView({behaviour:"smooth"});
-      setTimeout(async() => {
-        if(document.querySelectorAll(".job-card-container").length !=jobsCount)
+function scrollProgressively() {
+  const timeToCall = 2000;
+  return new Promise((res) => {
+    const jobs = document.querySelectorAll(".job-card-container");
+    const jobsCount = jobs.length;
+    jobs[jobsCount - 1].scrollIntoView({ behaviour: "smooth" });
+    setTimeout(async () => {
+      if (
+        document.querySelectorAll(".job-card-container").length != jobsCount
+      ) {
         res(scrollProgressively());
-        else {
-        return res({status:"end of scroll"});
-        }
-      }, timeToCall);
-    })
+      } else {
+        return res({ status: "end of scroll" });
+      }
+    }, timeToCall);
+  });
 }
-

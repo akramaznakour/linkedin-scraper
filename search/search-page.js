@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     chrome.storage.local.get("jobs", function (result) {
       const jobs = result.jobs;
 
+      console.log(jobs);
+
       if (jobs && jobs.length > 0) {
         // Clear existing table rows
         const tableBody = document.getElementById("jobsTableBody");
@@ -32,9 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
         jobs.forEach(function (job) {
           table.row
             .add([
-              job.linkedinJobId,
-              `<a href="${job.link}">${job.jobTitle}</a>`,
-              job.jobInsight,
+              job.jobTitle,
+              job.jobLocation,
+              job.company,
+              job.postedSince,
+              job.numberOfApplicants,
+              `<a href="${job.link}">link</a>`,
               job.jobDescription,
             ])
             .draw();
